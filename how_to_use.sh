@@ -5,8 +5,35 @@
 #
 # Note: confirm the android project path first
 #
-ANDROID_ROOT_PATH=/home/chengbin/p9.0_android_imx8
+ANDROID_ROOT_PATH=/home/nick/p9.0_android_imx8
 
+################ MAINBODY ############################################
+help() {
+bn=$(basename $0)
+cat << EOFG
+usage :  $bn <option>
+
+options:
+  -h		displays this help message
+  -a		copy these files to update the android source project
+
+EOFG
+}
+[ $# -lt 1 -o $# -gt 1 ] && help && exit
+[ "$1" != "-a" ] && help && exit
+
+# check the AOSP directory
+if [ ! -d ${ANDROID_ROOT_PATH} ]; then
+    echo ""
+    echo "Error: ${ANDROID_ROOT_PATH} is not found !"
+    echo ""
+    echo "Please specify a correct AOSP path to the ANDROID_ROOT_PATH,"
+    echo "and ANDROID_ROOT_PATH is in the 8th line of this script."
+    echo ""
+    echo "use the command \"vim how_to_use.sh +8\" to modify."
+    echo ""
+	exit
+fi
 echo ${ANDROID_ROOT_PATH}
 # ==================== frameworks =====================================
 #  @file-name: config.xml
